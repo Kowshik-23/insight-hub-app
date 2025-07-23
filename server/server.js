@@ -5,7 +5,11 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+const corsOptions = {
+  origin: 'https://elegant-sawine-e71317.netlify.app/', // Your Netlify frontend URL
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // --- Database Connection ---
