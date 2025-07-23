@@ -18,7 +18,7 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       const token = 'supersecretadmintoken'; 
-      const response = await axios.get('http://localhost:5000/api/individuals', {
+      const response = await axios.get('https://insight-hub-api.onrender.com/api/individuals', {
         headers: { 'Authorization': token }
       });
       setIndividuals(response.data);
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
     if (window.confirm('Are you sure you want to delete ALL data? This action cannot be undone.')) {
       try {
         const token = 'supersecretadmintoken';
-        await axios.delete('http://localhost:5000/api/individuals/all', {
+        await axios.delete('https://insight-hub-api.onrender.com/api/individuals/all', {
           headers: { 'Authorization': token }
         });
         alert('All data has been cleared.');
