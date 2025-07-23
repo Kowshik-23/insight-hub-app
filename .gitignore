@@ -1,0 +1,16 @@
+# .gitignore
+
+# Dependencies
+/node_modules
+/client/node_modules
+
+# Build folder
+/client/build
+
+# Environment files with secrets
+.env
+/server/.env
+/client/.env
+
+# Logs
+npm-debug.log*
