@@ -63,7 +63,7 @@ const AdminDashboard = () => {
     if (window.confirm(`Are you sure you want to delete ${selectedIds.length} selected records?`)) {
       try {
         const token = 'supersecretadmintoken';
-        await axios.delete('http://localhost:5000/api/individuals', {
+        await axios.delete('https://insight-hub-api.onrender.com/api/individuals', {
           headers: { 'Authorization': token },
           data: { ids: selectedIds } // Send the array of IDs in the request body
         });

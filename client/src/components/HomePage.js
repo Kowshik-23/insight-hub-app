@@ -19,7 +19,7 @@ const HomePage = () => {
         e.preventDefault();
         try {
             // Note: In deployment, you'd change this URL to your live backend URL
-            const response = await axios.post('http://localhost:5000/api/individuals', formData);
+            const response = await axios.post('https://insight-hub-api.onrender.com/api/individuals', formData);
             alert('Details submitted successfully!');
             console.log(response.data);
             // Clear the form
