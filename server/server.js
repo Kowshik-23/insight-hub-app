@@ -5,10 +5,26 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const corsOptions = {
-  origin: 'https://elegant-sawine-e71317.netlify.app/', // Your Netlify frontend URL
-  optionsSuccessStatus: 200
-};
+// insight-hub/server/server.js
+
+// ... (your require statements at the top)
+const express = require('express');
+const cors = require('cors'); // Make sure cors is required
+// ...
+
+
+
+// --- REPLACE YOUR CURRENT app.use(cors(...)) WITH THIS BLOCK ---
+app.use(cors({
+  origin: 'https://elegant-sawine-e71317.netlify.app',
+  methods: ['GET', 'POST', 'DELETE', 'PUT'], // Allowing all necessary methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowing necessary headers
+}));
+// --- END OF REPLACEMENT ---
+
+app.use(express.json()); // This should be after the CORS middleware
+
+// ... (the rest of your server.js file: mongoose connection, API routes, etc.)
 app.use(cors(corsOptions));
 app.use(express.json());
 
