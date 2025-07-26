@@ -21,7 +21,7 @@ const AdminDashboard = () => {
         setReportTitle(`Generating ${period} report...`);
         try {
             const token = 'supersecretadmintoken';
-            const response = await axios.get(`http://localhost:5000/api/reports?period=${period}`, {
+            const response = await axios.get(`https://insight-hub-api.onrender.com/api/reports?period=${period}`, {
                 headers: { 'Authorization': token }
             });
             const chartData = {
