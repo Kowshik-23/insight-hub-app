@@ -106,6 +106,46 @@ app.delete('/api/individuals', checkAuth, async (req, res) => {
         res.status(500).json({ message: 'Error deleting selected data', error });
     }
 });
+// Add this new route in server.js
+
+// GET filtered individuals for reports (Admin only)
+app.get('/api/reports', checkAuth, async (req, res) => {
+    const { period } = req.query; // e.g., ?period=weekly
+
+    let startDate = new Date();
+    const endDate = new Date();
+
+    if (period === 'weekly') {
+        startDate.setDate(endDate.getDate() - 7);
+    } else if (period === 'monthly') {
+        startDate.setMonth(endDate.getMonth() - 1);
+    } else if (period === 'yearly') {
+        startDate.setFullYear(endDate.getFullYear() - 1);
+    } else {
+        return res.status(400).json({ message: 'Invalid time period specified.' });
+    }
+
+    try {
+        const individuals = await Individual.find({
+            submittedAt: { $gte: startDate, $lt: endDate }
+        }).sort({ submittedAt: 'asc' });
+        
+        // Process data for chart
+        const reportData = individuals.reduce((acc, curr) => {
+            const date = new Date(curr.submittedAt).toLocaleDateString();
+            acc[date] = (acc[date] || 0) + 1;
+            return acc;
+        }, {});
+
+        res.json({
+            labels: Object.keys(reportData),
+            data: Object.values(reportData),
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching report data' });
+    }
+});
 
 
 // 8. START THE SERVER
